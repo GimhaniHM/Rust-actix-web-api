@@ -1,0 +1,4 @@
+username = user-name
+password = u@123
+url = mongodb+srv://user-name:<password>@billingdb.7966em3.mongodb.net/?retryWrites=true&w=majority
+mongodb+srv://user-name:u@123@billingdb.7966em3.mongodb.net/?retryWrites=true&w=majority
