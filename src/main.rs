@@ -10,7 +10,9 @@ mod api;
 mod models;
 mod repository;
 
-use api::stock_api::{create_groceryitem};
+use api::stock_api::{create_groceryitem, get_name};
+
+
 use repository::mongo_repo::MongoRepo;
 
 use dotenv::dotenv;
@@ -60,9 +62,12 @@ async fn main() -> std::io::Result<()>{
     println!("🚀 Server started successfully");
 
     HttpServer::new(move || {
-        App::new().app_data(db_data.clone()).service(create_groceryitem)
+        App::new().app_data(db_data.clone())
+            .service(get_name)
+            .service(index)
+            .service(create_groceryitem)
     })
-    .bind(("127.0.0.1", 5000))?
+    .bind(("127.0.0.1", 8080))?
         .run()
         .await
     

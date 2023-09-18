@@ -1,6 +1,6 @@
 use std::env;
 extern crate dotenv;
-use dotenv::dotenv;
+//use dotenv::dotenv;
 
 use mongodb::{
     bson::{extjson::de::Error},
@@ -22,10 +22,10 @@ impl MongoRepo {
         //     Ok(v) => v.to_string(),
         //     Err(_) => format!("Error loading env variable"),
         // };
-        let uri = "mongodb+srv://user-name:u@123@billingdb.7966em3.mongodb.net/?retryWrites=true&w=majority";
-        let mut client_options = ClientOptions::parse(uri).await?;
+        let uri = "mongodb+srv://admin:admin123@invoise-collection.ovsie3u.mongodb.net/?retryWrites=true&w=majority";
+        let client_options = ClientOptions::parse(uri).await?;
         let client = Client::with_options(client_options).unwrap();
-        let db = client.database("billingdb");
+        let db = client.database("invoise-collection");
         let col: Collection<GroceryItem> = db.collection("GroceryItem");
         println!("✅ Database connected successfully");
         Ok(Self {
@@ -33,8 +33,10 @@ impl MongoRepo {
         })
     }
 
-    pub async fn create_groceryitem(&self, new_groceryitem: GroceryItem) -> Result<InsertOneResult, Error> {
+    pub async fn create_groceryitems(&self, new_groceryitem: GroceryItem) -> Result<InsertOneResult, Error> {
+        println!("inside mongo repo");
         let new_doc = GroceryItem {
+            id: None,
             name: new_groceryitem.name,
             price: new_groceryitem.price,
             qty: new_groceryitem.qty
@@ -47,6 +49,6 @@ impl MongoRepo {
             .ok()
             .expect("Error creating grocery item");
 
-            Ok(groceryitem)
+        Ok(groceryitem)
     }
 }
