@@ -2,8 +2,8 @@ use actix_web::{get, web, App, HttpServer};
 use serde::{Deserialize, Serialize};
 use std::{sync::{Mutex}, collections::HashMap};
 
-mod itemlist;
-use itemlist::services;
+mod invoice;
+use invoice::services;
 
 //use to store application data
 struct AppState {
